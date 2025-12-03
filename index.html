@@ -108,13 +108,13 @@
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased font-sans">
 
     <!-- Navbar -->
     <nav class="fixed w-full z-50 glass-nav py-4 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
             
-            <!-- LOGO: Background Dihapus (Transparan) -->
+            <!-- LOGO: Background Transparan -->
             <div class="flex items-center gap-2 cursor-pointer group" onclick="window.scrollTo(0,0)">
                 <div class="w-12 h-12 flex items-center justify-center transition-transform group-hover:rotate-12">
                     <!-- GANTI SRC INI DENGAN FILE LOGO TRANSPARAN KAMU -->
@@ -169,7 +169,6 @@
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-green via-white to-brand-green animate-pulse">ALCHEMY.</span>
             </h1>
 
-            <!-- PERUBAHAN: Layout Grid dihapus, diganti Flex Column agar tombol di bawah teks -->
             <div class="max-w-2xl" data-aos="fade-up" data-aos-delay="200">
                 <p class="text-neutral-400 text-lg md:text-xl leading-relaxed mb-8">
                     <strong class="text-white">CakraLabs</strong> meramu kreativitas artisan manusia dengan kecepatan AI. Kami menciptakan Brand Visual, Dokumentasi, dan Strategi Digital yang berdampak.
@@ -201,8 +200,15 @@
     <!-- About Section -->
     <section id="about" class="py-32 px-6 bg-brand-surface relative">
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
-            <!-- Interactive Box -->
-            <div class="relative aspect-square interactive-box rounded-3xl border border-white/10 flex flex-col items-center justify-center text-center p-8 group" data-aos="zoom-in">
+            
+            <!-- 
+                PERBAIKAN MOBILE:
+                - min-h-[500px]: Agar kotak cukup tinggi di HP.
+                - py-24: Menambah padding atas bawah agar konten tengah aman.
+                - md:aspect-square: Kembali kotak di desktop.
+            -->
+            <div class="relative min-h-[500px] md:min-h-0 md:aspect-square interactive-box rounded-3xl border border-white/10 flex flex-col items-center justify-center text-center p-8 py-24 group" data-aos="zoom-in">
+                
                 <i data-lucide="layers" class="w-24 h-24 text-neutral-700 mb-6 icon-scale transition-all duration-500"></i>
                 
                 <div class="relative z-10">
@@ -212,10 +218,11 @@
                     </p>
                 </div>
 
-                <div class="absolute top-10 left-10 bg-neutral-900 border border-white/10 px-4 py-2 rounded-lg text-xs font-mono text-brand-green animate-float flex items-center gap-2 shadow-lg">
+                <!-- Floating Elements - Tetap Absolut tapi di posisi aman -->
+                <div class="absolute top-6 left-6 md:top-10 md:left-10 bg-neutral-900 border border-white/10 px-4 py-2 rounded-lg text-xs font-mono text-brand-green animate-float flex items-center gap-2 shadow-lg z-20">
                     <i data-lucide="pen-tool" class="w-3 h-3"></i> ARTISAN SOUL
                 </div>
-                <div class="absolute bottom-10 right-10 bg-neutral-900 border border-white/10 px-4 py-2 rounded-lg text-xs font-mono text-white animate-float flex items-center gap-2 shadow-lg" style="animation-delay: 1s;">
+                <div class="absolute bottom-6 right-6 md:bottom-10 md:right-10 bg-neutral-900 border border-white/10 px-4 py-2 rounded-lg text-xs font-mono text-white animate-float flex items-center gap-2 shadow-lg z-20" style="animation-delay: 1s;">
                     <i data-lucide="cpu" class="w-3 h-3"></i> AI COLLABORATION
                 </div>
             </div>
@@ -253,7 +260,6 @@
                 <h2 class="text-5xl md:text-6xl font-display font-bold">Ekosistem Layanan</h2>
             </div>
 
-            <!-- Grid Layout -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
                 <!-- 1. Brand Visuals -->
@@ -303,7 +309,7 @@
                     </ul>
                 </div>
 
-                <!-- 5. Documentation (Full Width at Bottom) -->
+                <!-- 5. Documentation (Full Width) -->
                 <div class="col-span-1 lg:col-span-2 interactive-box p-10 rounded-3xl border border-white/10 group relative" data-aos="fade-up" data-aos-delay="400">
                     <div class="flex justify-between items-start mb-8">
                         <i data-lucide="camera" class="w-12 h-12 text-white icon-scale transition-transform duration-500"></i>
