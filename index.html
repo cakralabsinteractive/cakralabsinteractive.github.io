@@ -1,30 +1,51 @@
-
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CakraLabs - Social Media Campaign Strategy</title>
+    <title>CakraLabs - Interactive Portfolio</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Fonts: Syne & Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     
-    <!-- Lucide Icons -->
+    <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
                     },
                     colors: {
                         brand: {
-                            green: '#B4F73D', // Warna hijau neon logo
-                            black: '#0a0a0a', // Warna background
+                            green: '#B4F73D',
+                            black: '#050505',
+                            dark: '#0a0a0a',
+                            surface: '#111111'
+                        }
+                    },
+                    animation: {
+                        'marquee': 'marquee 30s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
                         }
                     }
                 }
@@ -33,235 +54,274 @@
     </script>
 
     <style>
-        /* Custom Scrollbar */
+        body { background-color: #050505; color: white; overflow-x: hidden; }
+        
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #B4F73D; }
 
-        ::selection { background-color: #B4F73D; color: #000000; }
+        .glass-nav {
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            color: transparent;
+        }
+
+        .interactive-box {
+            background-color: #0f0f0f;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
         
-        .slide-mockup {
-            aspect-ratio: 4/5;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        .interactive-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(180, 247, 61, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .interactive-box:hover {
+            border-color: #B4F73D;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(180, 247, 61, 0.15);
+        }
+
+        .interactive-box:hover::before {
+            opacity: 1;
+        }
+
+        .interactive-box:hover .icon-scale {
+            transform: scale(1.2) rotate(-10deg);
+            color: #B4F73D;
         }
     </style>
 </head>
-<body class="bg-brand-black text-white font-sans antialiased">
+<body class="antialiased">
 
     <!-- Navbar -->
-    <nav class="fixed w-full z-50 bg-brand-black/90 backdrop-blur-md border-b border-white/10 py-4">
+    <nav class="fixed w-full z-50 glass-nav py-4 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
-                <div class="w-8 h-8 bg-brand-green rounded-full flex items-center justify-center">
-                    <span class="text-black font-extrabold text-lg">C</span>
+            
+            <!-- LOGO: Background Dihapus (Transparan) -->
+            <div class="flex items-center gap-2 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                <div class="w-12 h-12 flex items-center justify-center transition-transform group-hover:rotate-12">
+                    <!-- GANTI SRC INI DENGAN FILE LOGO TRANSPARAN KAMU -->
+                    <img src="image/cakralabs.cologoonly.png" alt="Logo" class="w-full h-full object-contain" />
                 </div>
-                <span class="font-bold text-xl tracking-tighter">CAKRA<span class="text-brand-green">LABS</span></span>
+                <span class="font-display font-bold text-xl tracking-tight">CAKRA<span class="text-brand-green">LABS</span></span>
             </div>
-            <div class="text-xs font-mono text-neutral-400 uppercase tracking-widest hidden md:block">
-                Campaign Strategy: "The Hybrid Agency"
+
+            <div class="hidden md:flex gap-8 text-sm font-medium text-neutral-400">
+                <a href="#about" class="hover:text-white transition-colors hover:underline decoration-brand-green underline-offset-8">Studio</a>
+                <a href="#services" class="hover:text-white transition-colors hover:underline decoration-brand-green underline-offset-8">Services</a>
+                <a href="#work" class="hover:text-white transition-colors hover:underline decoration-brand-green underline-offset-8">Selected Work</a>
             </div>
-            <a href="#slide-1" class="bg-white text-black px-5 py-2 rounded-full font-bold text-xs hover:bg-brand-green transition-all">
-                Mulai Presentasi
+
+            <a href="https://wa.me/6285880574423" target="_blank" class="hidden md:flex items-center gap-2 border border-white/20 px-6 py-2 rounded-full font-bold text-xs hover:bg-brand-green hover:text-black hover:border-brand-green transition-all group font-display tracking-wide">
+                LET'S TALK
+                <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:rotate-45 transition-transform"></i>
             </a>
+
+            <button class="md:hidden text-white p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-brand-black border-b border-white/10 p-6 flex flex-col gap-6 md:hidden shadow-2xl h-screen z-50">
+            <div class="flex justify-end">
+                <button onclick="document.getElementById('mobile-menu').classList.add('hidden')"><i data-lucide="x"></i></button>
+            </div>
+            <a href="#about" class="text-3xl font-display font-bold hover:text-brand-green">STUDIO</a>
+            <a href="#services" class="text-3xl font-display font-bold hover:text-brand-green">SERVICES</a>
+            <a href="#work" class="text-3xl font-display font-bold hover:text-brand-green">WORK</a>
+            <a href="https://wa.me/6285880574423" class="text-brand-green font-bold text-xl mt-4 flex items-center gap-2">WhatsApp <i data-lucide="external-link"></i></a>
         </div>
     </nav>
 
-    <!-- Hero Header -->
-    <header class="pt-32 pb-16 px-6 text-center max-w-4xl mx-auto">
-        <span class="text-brand-green font-mono text-xs tracking-widest uppercase mb-4 block">First Post Strategy</span>
-        <h1 class="text-4xl md:text-6xl font-bold mb-6">Perkenalan <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-green-600">CakraLabs</span> di Sosmed</h1>
-        <p class="text-neutral-400 text-lg leading-relaxed">
-            Berikut adalah bedah strategi per slide untuk postingan Carousel (Instagram/TikTok) pertama kita. 
-            Tujuannya: Edukasi market tentang konsep "Hybrid Agency" (Manusia + AI).
-        </p>
-    </header>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center px-6 relative pt-20 overflow-hidden">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#222_1px,transparent_1px),linear-gradient(to_bottom,#222_1px,transparent_1px)] bg-[size:60px_60px] opacity-20 -z-10"></div>
+        <div class="absolute top-20 right-0 w-[500px] h-[500px] bg-brand-green/10 rounded-full blur-[150px] animate-pulse -z-10"></div>
 
-    <!-- SLIDE 1: HOOK -->
-    <section id="slide-1" class="py-20 px-6 border-t border-white/5">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <!-- Visual Mockup -->
-            <div class="relative order-2 md:order-1">
-                <div class="slide-mockup bg-neutral-900 rounded-3xl border-4 border-neutral-800 overflow-hidden relative">
-                    <!-- Placeholder Image Content (User's Image) -->
-                    <div class="absolute inset-0 bg-neutral-800 flex flex-col items-center justify-center text-center p-8 bg-[url('https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center">
-                        <div class="absolute inset-0 bg-black/60"></div>
-                        <div class="relative z-10">
-                            <span class="bg-brand-green text-black px-2 py-1 text-[10px] font-bold uppercase mb-4 inline-block">Postingan Pertama</span>
-                            <h2 class="text-3xl font-bold text-white mb-2">IMAGE KAMU<br>DISINI</h2>
-                            <p class="text-xs text-neutral-300">(Visual Utama yang sudah kamu buat)</p>
-                        </div>
-                    </div>
+        <div class="max-w-7xl mx-auto w-full relative z-10">
+            <div class="mb-8" data-aos="fade-down">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-brand-green/30 bg-brand-green/5 text-brand-green text-xs font-mono uppercase tracking-widest">
+                    <span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+                    The Hybrid Agency
                 </div>
-                <!-- Decor -->
-                <div class="absolute -z-10 top-10 -left-10 w-full h-full border border-brand-green/20 rounded-3xl"></div>
             </div>
 
-            <!-- Strategy Text -->
-            <div class="order-1 md:order-2 space-y-6">
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="w-8 h-8 rounded-full bg-brand-green flex items-center justify-center text-black font-bold">1</span>
-                    <h3 class="text-2xl font-bold">The Visual Hook</h3>
-                </div>
-                <p class="text-lg text-white font-medium">
-                    "Tampilan pertama yang menentukan orang berhenti scroll atau lanjut."
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-display font-bold leading-[0.9] tracking-tighter mb-8 mix-blend-screen" data-aos="fade-up">
+                DIGITAL <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-green via-white to-brand-green animate-pulse">ALCHEMY.</span>
+            </h1>
+
+            <!-- PERUBAHAN: Layout Grid dihapus, diganti Flex Column agar tombol di bawah teks -->
+            <div class="max-w-2xl" data-aos="fade-up" data-aos-delay="200">
+                <p class="text-neutral-400 text-lg md:text-xl leading-relaxed mb-8">
+                    <strong class="text-white">CakraLabs</strong> meramu kreativitas artisan manusia dengan kecepatan AI. Kami menciptakan Brand Visual, Dokumentasi, dan Strategi Digital yang berdampak.
                 </p>
-                <div class="bg-neutral-900 p-6 rounded-2xl border border-white/10 space-y-4">
-                    <div>
-                        <h4 class="text-neutral-500 text-xs uppercase tracking-widest font-bold mb-1">Strategi</h4>
-                        <p class="text-neutral-300 text-sm">Gunakan gambar yang sudah kamu buat. Pastikan headline terbaca jelas walau di layar HP kecil.</p>
-                    </div>
-                    <div>
-                        <h4 class="text-neutral-500 text-xs uppercase tracking-widest font-bold mb-1">Goal</h4>
-                        <p class="text-brand-green text-sm font-bold">Stop Ratio (Menghentikan Jempol)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SLIDE 2: PROBLEM -->
-    <section id="slide-2" class="py-20 px-6 border-t border-white/5 bg-neutral-900/30">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <!-- Strategy Text -->
-            <div class="space-y-6">
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="w-8 h-8 rounded-full bg-neutral-700 flex items-center justify-center text-white font-bold border border-white/20">2</span>
-                    <h3 class="text-2xl font-bold">Agitasi Masalah</h3>
-                </div>
-                <p class="text-lg text-white font-medium">
-                    "Menyerang rasa frustrasi klien terhadap cara kerja agensi lama."
-                </p>
-                <ul class="space-y-3 text-neutral-300">
-                    <li class="flex items-start gap-3">
-                        <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-green shrink-0 mt-0.5"></i>
-                        <span>Validasi perasaan mereka (lambat, revisi lama, ide mentok).</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-green shrink-0 mt-0.5"></i>
-                        <span>Gunakan headline provokatif: "Marketing 2024 kok masih manual?"</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Visual Mockup -->
-            <div class="relative">
-                <div class="slide-mockup bg-black rounded-3xl border-4 border-neutral-800 p-8 flex flex-col justify-center">
-                    <span class="text-xs text-neutral-500 font-mono mb-4 uppercase">Reality Check</span>
-                    <h2 class="text-3xl font-bold leading-tight mb-6">
-                        MARKETING <br> 2024 KOK <br> MASIH <br> 
-                        <span class="text-neutral-500 decoration-brand-green underline decoration-4">MANUAL?</span>
-                    </h2>
-                    <div class="space-y-2">
-                        <div class="bg-neutral-900 p-3 rounded border border-white/10 text-xs text-neutral-400 flex gap-2">
-                            <i data-lucide="x" class="w-4 h-4 text-red-500"></i> Revisi sebulan?
-                        </div>
-                        <div class="bg-neutral-900 p-3 rounded border border-white/10 text-xs text-neutral-400 flex gap-2">
-                            <i data-lucide="x" class="w-4 h-4 text-red-500"></i> Boncos budget?
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SLIDE 3: SOLUTION -->
-    <section id="slide-3" class="py-20 px-6 border-t border-white/5">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <!-- Visual Mockup -->
-            <div class="relative order-2 md:order-1">
-                <div class="slide-mockup bg-black rounded-3xl border-4 border-neutral-800 p-8 flex flex-col justify-center relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-green/20 rounded-full blur-3xl"></div>
-                    <span class="text-xs text-brand-green font-mono mb-4 uppercase">The Solution</span>
-                    <h2 class="text-3xl font-bold leading-tight mb-8">
-                        KENALIN, <br> <span class="text-brand-green">THE HYBRID</span> <br> AGENCY.
-                    </h2>
-                    <div class="flex justify-center items-center gap-4 bg-neutral-900 p-4 rounded-xl border border-white/10">
-                        <div class="text-center">
-                            <i data-lucide="palette" class="w-6 h-6 mx-auto mb-1 text-white"></i>
-                            <div class="text-[8px] uppercase font-bold">Artisan</div>
-                        </div>
-                        <div class="text-xl font-bold text-brand-green">+</div>
-                        <div class="text-center">
-                            <i data-lucide="brain-circuit" class="w-6 h-6 mx-auto mb-1 text-brand-green"></i>
-                            <div class="text-[8px] uppercase font-bold text-brand-green">AI Tech</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Strategy Text -->
-            <div class="order-1 md:order-2 space-y-6">
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="w-8 h-8 rounded-full bg-neutral-700 flex items-center justify-center text-white font-bold border border-white/20">3</span>
-                    <h3 class="text-2xl font-bold">Intro Konsep</h3>
-                </div>
-                <p class="text-lg text-white font-medium">
-                    "Mendefinisikan ulang identitas CakraLabs."
-                </p>
-                <div class="bg-neutral-900 p-6 rounded-2xl border border-white/10 space-y-4">
-                    <div>
-                        <h4 class="text-neutral-500 text-xs uppercase tracking-widest font-bold mb-1">Pesan Utama</h4>
-                        <p class="text-neutral-300 text-sm">Kita bukan sekadar agensi digital biasa. Kita menggabungkan rasa manusia dengan kecepatan mesin.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SLIDE 4 & 5: PRODUCTS (Grid) -->
-    <section id="products" class="py-20 px-6 border-t border-white/5 bg-neutral-900/30">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4">Bedah Produk</h2>
-                <p class="text-neutral-400">Menjelaskan dua sisi layanan CakraLabs secara berdampingan.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12">
                 
-                <!-- SLIDE 4: ARTISAN -->
-                <div class="space-y-6">
-                    <div class="slide-mockup bg-neutral-900 rounded-3xl border-4 border-neutral-800 p-8 flex flex-col relative overflow-hidden">
-                        <i data-lucide="pen-tool" class="absolute -right-4 top-20 w-40 h-40 text-white/5 rotate-12"></i>
-                        <span class="bg-white text-black px-2 py-0.5 text-[10px] font-bold uppercase rounded w-fit mb-4">Mode: Artisan</span>
-                        <h2 class="text-2xl font-bold leading-tight mb-4 relative z-10">
-                            KARENA <br> <span class="text-neutral-400 italic">RASA</span> ITU <br> MAHAL.
-                        </h2>
-                        <ul class="space-y-2 relative z-10 mt-auto">
-                            <li class="flex items-center gap-2 text-xs text-neutral-300 border-b border-white/10 pb-2">
-                                <i data-lucide="check" class="w-3 h-3"></i> Brand Philosophy
-                            </li>
-                            <li class="flex items-center gap-2 text-xs text-neutral-300 border-b border-white/10 pb-2">
-                                <i data-lucide="check" class="w-3 h-3"></i> Deep Visual Identity
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="px-4">
-                        <h4 class="font-bold text-white mb-2">Slide 4: Sisi Manusia</h4>
-                        <p class="text-sm text-neutral-400">Targeting klien yang takut hasil AI terlihat kaku. Kita jual "Soul" & "Kualitas Premium".</p>
-                    </div>
+                <div class="flex gap-4">
+                    <a href="#services" class="bg-brand-green text-black px-8 py-4 rounded-full font-display font-bold text-lg hover:bg-white transition-colors flex items-center gap-2 group shadow-[0_0_20px_rgba(180,247,61,0.3)]">
+                        Explore Services
+                        <i data-lucide="arrow-down" class="group-hover:translate-y-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Marquee -->
+        <div class="border-y border-white/10 py-6 mt-24 bg-brand-black/50 backdrop-blur-sm overflow-hidden flex transform -rotate-1 origin-left scale-105">
+            <div class="animate-marquee whitespace-nowrap flex gap-12 text-4xl md:text-6xl font-display font-bold text-stroke opacity-30">
+                <span>BRAND SERVICES</span>
+                <span>ANY DOCUMENTATION</span>
+                <span>APP REDESIGN</span>
+                <span>AI SOLUTIONS</span>
+                <span>BRAND SERVICES</span>
+                <span>ANY DOCUMENTATION</span>
+                <span>APP REDESIGN</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 px-6 bg-brand-surface relative">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+            <!-- Interactive Box -->
+            <div class="relative aspect-square interactive-box rounded-3xl border border-white/10 flex flex-col items-center justify-center text-center p-8 group" data-aos="zoom-in">
+                <i data-lucide="layers" class="w-24 h-24 text-neutral-700 mb-6 icon-scale transition-all duration-500"></i>
+                
+                <div class="relative z-10">
+                    <h3 class="text-4xl font-display font-bold mb-2">The Hybrid Model</h3>
+                    <p class="text-neutral-400 max-w-xs mx-auto text-sm">
+                        Kami tidak memilih antara manusia atau mesin. Kami menggunakan keduanya.
+                    </p>
                 </div>
 
-                <!-- SLIDE 5: AI TECH -->
-                <div class="space-y-6">
-                    <div class="slide-mockup bg-black rounded-3xl border-4 border-neutral-800 p-8 flex flex-col relative overflow-hidden">
-                        <div class="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(180,247,61,0.05)_50%)] bg-[size:10px_10px]"></div>
-                        <span class="bg-brand-green text-black px-2 py-0.5 text-[10px] font-bold uppercase rounded w-fit mb-4 relative z-10">Mode: AI Boost</span>
-                        <h2 class="text-2xl font-bold leading-tight mb-4 relative z-10 text-brand-green">
-                            TAPI MARKET <br> NGGAK BISA <br> NUNGGU.
-                        </h2>
-                        <ul class="space-y-2 relative z-10 mt-auto">
-                            <li class="flex items-center gap-2 text-xs text-neutral-300 border-b border-brand-green/20 pb-2">
-                                <i data-lucide="zap" class="w-3 h-3 text-brand-green"></i> Trend Prediction
-                            </li>
-                            <li class="flex items-center gap-2 text-xs text-neutral-300 border-b border-brand-green/20 pb-2">
-                                <i data-lucide="zap" class="w-3 h-3 text-brand-green"></i> Rapid Content Gen
-                            </li>
-                        </ul>
+                <div class="absolute top-10 left-10 bg-neutral-900 border border-white/10 px-4 py-2 rounded-lg text-xs font-mono text-brand-green animate-float flex items-center gap-2 shadow-lg">
+                    <i data-lucide="pen-tool" class="w-3 h-3"></i> ARTISAN SOUL
+                </div>
+                <div class="absolute bottom-10 right-10 bg-neutral-900 border border-white/10 px-4 py-2 rounded-lg text-xs font-mono text-white animate-float flex items-center gap-2 shadow-lg" style="animation-delay: 1s;">
+                    <i data-lucide="cpu" class="w-3 h-3"></i> AI COLLABORATION
+                </div>
+            </div>
+
+            <div class="space-y-8" data-aos="fade-left">
+                <h2 class="text-4xl md:text-5xl font-display font-bold leading-tight">
+                    Masa Depan Agensi <br> Ada Di Sini.
+                </h2>
+                <div class="space-y-6 text-neutral-400 text-lg leading-relaxed">
+                    <p>
+                        CakraLabs lahir dari keresahan bahwa agensi tradisional itu lambat, dan agensi full-AI itu kaku. Kami adalah jalan tengahnya.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 pt-4">
+                        <div class="bg-black p-4 rounded-xl border border-white/10">
+                            <i data-lucide="pen-tool" class="text-brand-green mb-2"></i>
+                            <h4 class="font-bold text-white font-display">Artisan Mode</h4>
+                            <p class="text-xs mt-1 text-neutral-500">Manual, Detail, Filosofis.</p>
+                        </div>
+                        <div class="bg-black p-4 rounded-xl border border-white/10">
+                            <i data-lucide="cpu" class="text-brand-green mb-2"></i>
+                            <h4 class="font-bold text-white font-display">AI Boost Mode</h4>
+                            <p class="text-xs mt-1 text-neutral-500">Cepat, Data-Driven, Efisien.</p>
+                        </div>
                     </div>
-                    <div class="px-4">
-                        <h4 class="font-bold text-white mb-2">Slide 5: Sisi Teknologi</h4>
-                        <p class="text-sm text-neutral-400">Targeting klien yang butuh speed & efisiensi. Kita jual "Kecepatan" & "Data".</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-32 px-6 bg-brand-black relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-20" data-aos="fade-up">
+                <span class="text-brand-green font-mono text-xs tracking-widest uppercase mb-4 block">End-to-End Solutions</span>
+                <h2 class="text-5xl md:text-6xl font-display font-bold">Ekosistem Layanan</h2>
+            </div>
+
+            <!-- Grid Layout -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- 1. Brand Visuals -->
+                <div class="interactive-box p-10 rounded-3xl border border-white/10 group" data-aos="fade-up" data-aos-delay="100">
+                    <i data-lucide="palette" class="w-10 h-10 text-white mb-6 icon-scale transition-transform duration-500"></i>
+                    <h3 class="text-2xl font-display font-bold mb-4 text-white group-hover:text-brand-green transition-colors">Brand Visuals</h3>
+                    <p class="text-neutral-400 text-sm mb-6">Membangun identitas visual yang kuat dan berkarakter.</p>
+                    <ul class="text-sm text-neutral-500 space-y-2 font-bold">
+                        <li class="flex gap-2 text-white"><span class="text-brand-green">•</span> Logo Design</li>
+                        <li class="flex gap-2 text-white"><span class="text-brand-green">•</span> Brand Guidelines</li>
+                        <li class="flex gap-2 text-white"><span class="text-brand-green">•</span> Packaging</li>
+                    </ul>
+                </div>
+
+                <!-- 2. UI/UX -->
+                <div class="interactive-box p-10 rounded-3xl border border-white/10 group" data-aos="fade-up" data-aos-delay="200">
+                    <i data-lucide="monitor" class="w-10 h-10 text-white mb-6 icon-scale transition-transform duration-500"></i>
+                    <h3 class="text-2xl font-display font-bold mb-4 text-white group-hover:text-brand-green transition-colors">UI/UX Design</h3>
+                    <p class="text-neutral-400 text-sm mb-6">Desain digital yang fokus pada pengalaman pengguna.</p>
+                    <ul class="text-sm text-neutral-500 space-y-2 font-bold">
+                        <li class="flex gap-2 text-white"><span class="text-brand-green">•</span> Website Design</li>
+                        <li class="flex gap-2 text-white"><span class="text-brand-green">•</span> Mobile App Interface</li>
+                    </ul>
+                </div>
+
+                <!-- 3. Social Media Magic -->
+                <div class="interactive-box p-10 rounded-3xl border border-white/10 group relative overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="absolute top-0 right-0 px-3 py-1 bg-brand-green text-black text-[10px] font-bold rounded-bl-xl font-display">AI POWERED</div>
+                    <i data-lucide="zap" class="w-10 h-10 text-brand-green mb-6 icon-scale transition-transform duration-500"></i>
+                    <h3 class="text-2xl font-display font-bold mb-4 text-white">Social Media Magic</h3>
+                    <p class="text-neutral-400 text-sm mb-6">Strategi konten dibantu AI untuk engagement maksimal.</p>
+                    <ul class="text-sm text-brand-green/80 space-y-2 font-bold">
+                        <li class="flex gap-2 text-white"><span class="text-brand-green">•</span> AI Trend Analysis</li>
+                        <li class="flex gap-2 text-white"><span class="text-brand-green">•</span> Rapid Content Gen</li>
+                    </ul>
+                </div>
+
+                <!-- 4. Digital Consultancy -->
+                <div class="interactive-box p-10 rounded-3xl border border-white/10 group relative overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                    <div class="absolute top-0 right-0 px-3 py-1 bg-brand-green text-black text-[10px] font-bold rounded-bl-xl font-display">AI POWERED</div>
+                    <i data-lucide="bar-chart-2" class="w-10 h-10 text-brand-green mb-6 icon-scale transition-transform duration-500"></i>
+                    <h3 class="text-2xl font-display font-bold mb-4 text-white">Digital Consultancy</h3>
+                    <p class="text-neutral-400 text-sm mb-6">Optimasi performa bisnis digital Anda (Ads & SEO).</p>
+                    <ul class="text-sm text-brand-green/80 space-y-2 font-bold">
+                        <li class="flex gap-2 text-white"><span class="text-brand-green">•</span> Performance Ads</li>
+                        <li class="flex gap-2 text-white"><span class="text-brand-green">•</span> SEO Optimization</li>
+                    </ul>
+                </div>
+
+                <!-- 5. Documentation (Full Width at Bottom) -->
+                <div class="col-span-1 lg:col-span-2 interactive-box p-10 rounded-3xl border border-white/10 group relative" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex justify-between items-start mb-8">
+                        <i data-lucide="camera" class="w-12 h-12 text-white icon-scale transition-transform duration-500"></i>
+                        <span class="bg-white/10 px-3 py-1 rounded-full text-xs font-bold text-white border border-white/20">MOST REQUESTED</span>
+                    </div>
+                    <h3 class="text-3xl font-display font-bold mb-4 text-white group-hover:text-brand-green transition-colors">Professional Documentation</h3>
+                    <p class="text-neutral-400 mb-8 max-w-xl text-lg">
+                        Jasa dokumentasi visual terlengkap. Mengabadikan setiap momen penting dengan standar broadcast.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                        <span class="px-3 py-2 bg-white/5 rounded border border-white/10 text-xs text-center text-neutral-300">Gathering Kantor</span>
+                        <span class="px-3 py-2 bg-white/5 rounded border border-white/10 text-xs text-center text-neutral-300">Event Perusahaan</span>
+                        <span class="px-3 py-2 bg-white/5 rounded border border-white/10 text-xs text-center text-neutral-300">Bazaar & Expo</span>
+                        <span class="px-3 py-2 bg-white/5 rounded border border-white/10 text-xs text-center text-neutral-300">Konser Musik</span>
+                        <span class="px-3 py-2 bg-white/5 rounded border border-white/10 text-xs text-center text-neutral-300">Wedding</span>
+                        <span class="px-3 py-2 bg-white/5 rounded border border-white/10 text-xs text-center text-neutral-300">Graduation</span>
+                        <span class="px-3 py-2 bg-white/5 rounded border border-white/10 text-xs text-center text-neutral-300">Buku Tahunan</span>
+                        <span class="px-3 py-2 bg-white/5 rounded border border-white/10 text-xs text-center text-neutral-300">Foto Produk</span>
                     </div>
                 </div>
 
@@ -269,63 +329,135 @@
         </div>
     </section>
 
-    <!-- SLIDE 6 & 7: CLOSING -->
-    <section id="closing" class="py-20 px-6 border-t border-white/5">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+    <!-- Selected Works (3 Poin Utama) -->
+    <section id="work" class="py-32 px-6 bg-brand-dark border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl md:text-7xl font-display font-bold mb-16 text-center" data-aos="fade-up">Selected Works</h2>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Work 1 -->
+                <div class="interactive-box aspect-[4/5] rounded-3xl border border-white/10 group p-8 flex flex-col justify-between cursor-pointer" data-aos="fade-up">
+                    <div class="flex justify-between items-start">
+                        <div class="bg-white/10 p-3 rounded-full">
+                            <i data-lucide="hexagon" class="w-8 h-8 text-white icon-scale transition-transform duration-500"></i>
+                        </div>
+                        <span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">01</span>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-display font-bold mb-2 text-white group-hover:text-brand-green transition-colors">Brand Services</h3>
+                        <p class="text-neutral-400 text-sm">Identity System, Logo Design, Strategy.</p>
+                    </div>
+                    <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+                        <div class="w-0 h-full bg-brand-green group-hover:w-full transition-all duration-700 ease-in-out"></div>
+                    </div>
+                </div>
+
+                <!-- Work 2 -->
+                <div class="interactive-box aspect-[4/5] rounded-3xl border border-white/10 group p-8 flex flex-col justify-between cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex justify-between items-start">
+                        <div class="bg-white/10 p-3 rounded-full">
+                            <i data-lucide="aperture" class="w-8 h-8 text-white icon-scale transition-transform duration-500"></i>
+                        </div>
+                        <span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">02</span>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-display font-bold mb-2 text-white group-hover:text-brand-green transition-colors">Any Documentation</h3>
+                        <p class="text-neutral-400 text-sm">Corporate Event, Wedding, Concert, & Products.</p>
+                    </div>
+                    <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+                        <div class="w-0 h-full bg-brand-green group-hover:w-full transition-all duration-700 ease-in-out"></div>
+                    </div>
+                </div>
+
+                <!-- Work 3 -->
+                <div class="interactive-box aspect-[4/5] rounded-3xl border border-white/10 group p-8 flex flex-col justify-between cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex justify-between items-start">
+                        <div class="bg-white/10 p-3 rounded-full">
+                            <i data-lucide="smartphone" class="w-8 h-8 text-white icon-scale transition-transform duration-500"></i>
+                        </div>
+                        <span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">03</span>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-display font-bold mb-2 text-white group-hover:text-brand-green transition-colors">App Redesign</h3>
+                        <p class="text-neutral-400 text-sm">UI/UX Modernization, User Flow, Prototyping.</p>
+                    </div>
+                    <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+                        <div class="w-0 h-full bg-brand-green group-hover:w-full transition-all duration-700 ease-in-out"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-32 px-6 relative overflow-hidden flex flex-col items-center justify-center text-center bg-black">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(180,247,61,0.1),transparent_70%)]"></div>
+        
+        <div class="relative z-10 max-w-4xl" data-aos="zoom-in-up">
+            <h2 class="text-5xl md:text-8xl font-display font-bold mb-8 leading-none text-white">
+                SIAP UNTUK <br>
+                <span class="text-stroke hover:text-brand-green transition-colors duration-500 cursor-default">BERDISKUSI?</span>
+            </h2>
+            <p class="text-neutral-400 text-xl mb-12 max-w-xl mx-auto">
+                Jangan biarkan ide cemerlang Anda mengendap. Diskusikan kebutuhan dokumentasi atau branding Anda bersama tim CakraLabs.
+            </p>
             
-            <!-- Strategy Text -->
-            <div class="space-y-8">
-                <div>
-                    <div class="flex items-center gap-3 mb-2">
-                        <span class="w-8 h-8 rounded-full bg-neutral-700 flex items-center justify-center text-white font-bold border border-white/20">6</span>
-                        <h3 class="text-2xl font-bold">Engagement (Pilihan)</h3>
-                    </div>
-                    <p class="text-neutral-400 text-sm">
-                        Slide ini memaksa audiens untuk berpikir: "Aku butuh yang mana?". Dan jawabannya adalah: mereka butuh keduanya (Hybrid).
-                    </p>
-                </div>
-                <div>
-                    <div class="flex items-center gap-3 mb-2">
-                        <span class="w-8 h-8 rounded-full bg-brand-green flex items-center justify-center text-black font-bold border border-brand-green">7</span>
-                        <h3 class="text-2xl font-bold">CTA (Gas Pol)</h3>
-                    </div>
-                    <p class="text-neutral-400 text-sm">
-                        Penutup yang energik. Jangan gunakan kata "Hubungi Kami" yang membosankan. Gunakan "Gas Pol Brand Lo".
-                    </p>
-                </div>
+            <a href="https://wa.me/6285880574423" target="_blank" class="group relative inline-flex items-center justify-center px-10 py-5 font-bold text-black transition-all duration-300 bg-brand-green rounded-full focus:outline-none hover:bg-white hover:scale-105 font-display text-lg">
+                <span class="mr-3">Ayo Diskusi dengan Kami</span>
+                <i data-lucide="message-circle" class="w-6 h-6 group-hover:rotate-12 transition-transform"></i>
+            </a>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm text-neutral-500 font-bold">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                Respon Cepat via WhatsApp
             </div>
-
-            <!-- Visual Mockup (CTA Slide) -->
-            <div class="relative">
-                <div class="slide-mockup bg-black rounded-3xl border-4 border-neutral-800 p-8 flex flex-col justify-center items-center text-center relative overflow-hidden">
-                    <div class="absolute inset-0 bg-brand-green/5 rounded-full blur-3xl transform scale-150"></div>
-                    
-                    <div class="w-16 h-16 bg-brand-green rounded-full flex items-center justify-center mb-6 animate-pulse relative z-10">
-                        <i data-lucide="arrow-right" class="w-8 h-8 text-black"></i>
-                    </div>
-
-                    <h2 class="text-3xl font-bold mb-4 relative z-10">
-                        GAS POL <br> BRAND LO.
-                    </h2>
-
-                    <div class="w-full bg-white text-black font-bold py-3 rounded-full mb-4 relative z-10 cursor-pointer hover:scale-105 transition">
-                        Klik Link di Bio
-                    </div>
-                    
-                    <p class="text-[10px] text-neutral-500 relative z-10">@cakralabs</p>
-                </div>
-            </div>
-
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-10 border-t border-white/5 text-center text-neutral-500 text-sm">
-        <p>&copy; 2024 CakraLabs Strategy Deck.</p>
+    <footer class="bg-black py-12 px-6 border-t border-white/10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <h3 class="text-2xl font-display font-bold mb-1 text-white">CAKRA<span class="text-brand-green">LABS</span></h3>
+                <p class="text-neutral-500 text-sm">Hybrid Creative Agency based in Jakarta.</p>
+            </div>
+            
+            <div class="flex gap-8 text-sm font-bold text-white">
+                <a href="#" class="hover:text-brand-green transition-colors">Instagram</a>
+                <a href="#" class="hover:text-brand-green transition-colors">LinkedIn</a>
+                <a href="#" class="hover:text-brand-green transition-colors">Email</a>
+            </div>
+
+            <div class="text-neutral-600 text-sm">
+                © 2025 CakraLabs.
+            </div>
+        </div>
     </footer>
 
     <script>
+        // Initialize Icons
         lucide.createIcons();
+
+        // Initialize Animate On Scroll (AOS)
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100,
+            easing: 'ease-out-cubic'
+        });
+
+        // Navbar Scroll Logic
+        const navbar = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-3');
+                navbar.classList.remove('py-4');
+            } else {
+                navbar.classList.add('py-4');
+                navbar.classList.remove('py-3');
+            }
+        });
     </script>
 </body>
 </html>
